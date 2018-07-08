@@ -9,6 +9,4 @@ auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
 auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
 api = tweepy.API(auth)
 
-while True:
-    api.update_status("test")
-    time.sleep(300)
+api.update_status("test")
