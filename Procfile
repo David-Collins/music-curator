@@ -1,1 +1,1 @@
-worker: python botscript.py
+

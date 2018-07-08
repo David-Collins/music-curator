@@ -1,17 +1,22 @@
 import tweepy
-import time
 import random
+import os
 
-CONSUMER_KEY = '2PyQIHvWYtz6PpBxLRL7WH4zX'
-CONSUMER_SECRET = 'v0y04fv6shyYF6E45M5CAf41NQwRa0Lad4rDo51c1dQgaaQVdI'
-ACCESS_KEY = '1012414359891599361-L2bkcMnM0GM0JXspjXKVYRhjm1nSUc'
-ACCESS_SECRET = 'X72w9TEY72oWJqqtNHbYAFnh4uVBE8LP4ekqIW1a9zl0U'
+CONSUMER_KEY = os.environ['TWITTER_CONSUMER_KEY']
+CONSUMER_SECRET = os.environ['TWITTER_CONSUMER_SECRET']
+OAUTH_TOKEN = os.environ['TWITTER_OAUTH_TOKEN']
+OAUTH_TOKEN_SECRET = os.environ['TWITTER_OAUTH_TOKEN_SECRET']
 auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
 auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
 api = tweepy.API(auth)
 
-msg = str(random.randint(1,100001))
+msg = str(random.randint(1,100001)) + " yuh"
 
-while True:
+try:
     api.update_status(msg)
-    time.sleep(300)
+except tweepy.TweepError as error:
+    if error.api_code == 187:
+        # Do something special
+        print('duplicate message')
+    else:
+       raise error
