@@ -1,5 +1,6 @@
 import tweepy
 import time
+import random
 
 CONSUMER_KEY = '2PyQIHvWYtz6PpBxLRL7WH4zX'
 CONSUMER_SECRET = 'v0y04fv6shyYF6E45M5CAf41NQwRa0Lad4rDo51c1dQgaaQVdI'
@@ -9,4 +10,6 @@ auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
 auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
 api = tweepy.API(auth)
 
-api.update_status("test")
+msg = str(random.randint(1,100001))
+
+api.update_status(msg)
