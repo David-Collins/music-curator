@@ -12,4 +12,6 @@ api = tweepy.API(auth)
 
 msg = str(random.randint(1,100001))
 
-api.update_status(msg)
+while True:
+    api.update_status(msg)
+    time.sleep(300)
