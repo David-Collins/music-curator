@@ -1,0 +1,24 @@
+{
+  "name": "music-curator-cdk",
+  "version": "0.0.1",
+  "scripts": {
+    "build:ts": "tsc -b",
+    "build:cdk": "cdk synth --output=cdk.out",
+    "build": "run-s -ls build:*",
+    "deploy": "cdk deploy * --require-approval=never --app=cdk.out",
+    "teardown": "cdk destroy * --force --app=cdk.out"
+  },
+  "devDependencies": {
+    "@types/node": "10.17.27",
+    "aws-cdk": "^2.10.0",
+    "npm-run-all": "^4.1.5",
+    "ts-node": "^9.0.0",
+    "typescript": "~4.5.5"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "^2.10.0",
+    "constructs": "^10.0.55",
+    "music-curator-app": "workspace:*",
+    "source-map-support": "^0.5.16"
+  }
+}

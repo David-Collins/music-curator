@@ -1,0 +1,32 @@
+name: release
+on: 
+  push:
+    branches: [main]
+
+env:
+  AUTH_PARAM_PATH: {{ secrets.AUTH_PARAM_PATH }}
+  CDK_DEFAULT_ACCOUNT: {{ secrets.CDK_DEFAULT_ACCOUNT }}
+  AWS_DEFAULT_REGION: {{ secrets.AWS_DEFAULT_REGION }}
+
+
+jobs:
+  Deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install asdf
+        uses: asdf-vm/actions/setup@v1
+      - name: Install tools from .tool-versions
+        uses: asdf-vm/actions/install@v1
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: build
+        run: pnpm build
+      - name: deploy
+        run: pnpm deploy
+        env:
+         - AWS_ACCESS_KEY_ID: {{ secrets.AWS_ACCESS_KEY_ID }}
+         - AWS_SECRET_ACCESS_KEY: {{ secrets.AWS_SECRET_ACCESS_KEY }}
+      

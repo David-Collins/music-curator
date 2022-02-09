@@ -1,0 +1,15 @@
+{
+  "license": "MIT",
+  "scripts": {
+    "build": "pnpm run build -r",
+    "deploy": "pnpm run deploy -r",
+    "teardown": "pnpm run teardown -r",
+    "lint": "prettier --check .",
+    "fix": "prettier --write ."
+  },
+  "private": true,
+  "devDependencies": {
+    "prettier": "^2.5.1",
+    "typescript": "~4.5.5"
+  }
+}

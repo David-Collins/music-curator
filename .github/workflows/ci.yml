@@ -1,0 +1,28 @@
+name: CI
+on: [pull-request]
+
+env:
+  AUTH_PARAM_PATH: {{ secrets.AUTH_PARAM_PATH }}
+  CDK_DEFAULT_ACCOUNT: {{ secrets.CDK_DEFAULT_ACCOUNT }}
+  AWS_DEFAULT_REGION: {{ secrets.AWS_DEFAULT_REGION }}
+
+jobs:
+  ci:
+    name: CI
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install asdf
+        uses: asdf-vm/actions/setup@v1
+      - name: Install tools from .tool-versions
+        uses: asdf-vm/actions/install@v1
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: build
+        run: pnpm build
+      - name: test
+        run: pnpm test
+      - name: lint
+        run: pnpm lint
+      
