@@ -5,7 +5,7 @@
     "build:ts": "tsc -b",
     "build:cdk": "cdk synth --output=cdk.out",
     "build": "run-s -ls build:*",
-    "deploy": "cdk deploy * --require-approval=never --app=cdk.out",
+    "deploy": "cdk deploy --require-approval=never",
     "teardown": "cdk destroy * --force --app=cdk.out"
   },
   "devDependencies": {
