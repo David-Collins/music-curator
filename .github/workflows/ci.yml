@@ -1,15 +1,13 @@
 name: CI
 on: [pull_request]
 
-env:
-  AUTH_PARAM_PATH: {{ secrets.AUTH_PARAM_PATH }}
-  CDK_DEFAULT_ACCOUNT: {{ secrets.CDK_DEFAULT_ACCOUNT }}
-  AWS_DEFAULT_REGION: {{ secrets.AWS_DEFAULT_REGION }}
-
 jobs:
   ci:
-    name: CI
     runs-on: ubuntu-latest
+    env:
+      AUTH_PARAM_PATH: ${{ secrets.AUTH_PARAM_PATH }}
+      CDK_DEFAULT_ACCOUNT: ${{ secrets.CDK_DEFAULT_ACCOUNT }}
+      AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
