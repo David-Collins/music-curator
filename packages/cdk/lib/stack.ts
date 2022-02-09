@@ -1,8 +1,10 @@
 import { dirname } from 'path';
-import { Stack, StackProps } from 'aws-cdk-lib';
+import { Duration, Stack, StackProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as iam from 'aws-cdk-lib/aws-iam';
+import * as events from 'aws-cdk-lib/aws-events';
+import * as targets from 'aws-cdk-lib/aws-events-targets';
 
 export class MusicCuratorStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -21,7 +23,7 @@ export class MusicCuratorStack extends Stack {
       ],
     });
 
-    new lambda.Function(this, 'Function', {
+    const handler = new lambda.Function(this, 'Function', {
       code: lambda.Code.fromAsset(
         dirname(require.resolve('music-curator-app'))
       ),
@@ -32,5 +34,11 @@ export class MusicCuratorStack extends Stack {
       },
       initialPolicy: [paramAccess],
     });
+
+    const schedule = new events.Rule(this, 'Schedule', {
+      schedule: events.Schedule.rate(Duration.days(1)),
+    });
+
+    schedule.addTarget(new targets.LambdaFunction(handler));
   }
 }
