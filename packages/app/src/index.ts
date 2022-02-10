@@ -1,6 +1,7 @@
 import snoowrap from 'snoowrap';
 import { TwitterApi } from 'twitter-api-v2';
 import { SSMClient, GetParameterCommand } from '@aws-sdk/client-ssm';
+import { decode } from 'html-entities';
 
 export type AuthenticationData = {
   TWITTER_CONSUMER_KEY: string;
@@ -28,7 +29,7 @@ export async function getAuthData(): Promise<AuthenticationData> {
 
 export async function getRecentTweets(client: TwitterApi) {
   return (await client.v1.userTimelineByUsername('dc_music_tweets')).tweets.map(
-    (x) => x.full_text.split('\n')[0]
+    (x) => decode(x.full_text, { scope: 'strict' }).split('\n')[0]
   );
 }
 
