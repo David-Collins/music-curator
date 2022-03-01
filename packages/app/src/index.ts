@@ -68,6 +68,7 @@ export async function handler(): Promise<void> {
         `${topEligblePost.title}\n${topEligblePost.url}`
       );
     }
+    console.log("Successful post");
   } catch (err) {
     console.log(err);
   }
